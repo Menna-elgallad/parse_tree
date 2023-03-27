@@ -1,0 +1,3 @@
+Num a = c ; 
+Bool b = 1 ; 
+Num c = 2 ; 
