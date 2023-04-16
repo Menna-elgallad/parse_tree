@@ -147,4 +147,27 @@ def generateSubtrees(statmentss):
     return program
 
 
-print(generateSubtrees(statments))
+parse_trees = generateSubtrees(statments)
+# print(parse_tree[1])
+
+# output = {'statements': []}
+
+statements = []
+for i, item in enumerate(parse_trees):
+    statment = {
+        'statment': item['statment'],
+        'statements': []
+    }
+    if i == 0:
+        statements.append(statment)
+        current = statment
+    else:
+        current['statements'].append(statment)
+        current = statment
+
+output = {'statements': statements}
+
+print(output)
+
+
+
