@@ -1,4 +1,4 @@
 Num a = c ; 
 Bool b = 1 ; 
-Num c = 2 ; 
-Bool a = 5  ; 
+input : 5 ;
+output : 7 ;

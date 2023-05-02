@@ -10,7 +10,7 @@ datatype = ""
 identefier = ""
 value = ""
 grammer = {'ids': ['a', 'b', 'c'], 'number': [str(num) for num in [x for x in range(10)]], 'type': [
-    "Num", "Bool", 'Char'], 'opt': [';', '"', "="]}
+    "Num", "Bool", 'Char'], 'opt': [';', '"', "=" , ":"] , 'keyword': ['input' , 'output']}
 
 print("grammer>>", grammer)
 
@@ -109,7 +109,9 @@ def traverseInput(tokens):
         state = []
 
         statment = " ".join(i)
-        stamtmentmatch = checkStatment(statment)
+        # stamtmentmatch = checkStatment(statment)
+        stamtmentmatch = True
+        
         print("statment", statment)
         if (stamtmentmatch):
             for x in i:
@@ -121,6 +123,8 @@ def traverseInput(tokens):
                     val = "opt"
                 elif x in grammer['number']:
                     val = 'number'
+                elif x in grammer['keyword']:
+                    val = 'keyword'
                 print(x, val)
                 state.append([val, _checkTerminals(val, x)])
                 # root = create_node(
@@ -155,19 +159,47 @@ parse_trees = generateSubtrees(statments)
 statements = []
 for i, item in enumerate(parse_trees):
     statment = {
-        'statment': item['statment'],
-        'statements': []
-    }
+        'children' : [ {
+        'statment': {
+            'value' : item['statment']
+        } } , 
+        {
+
+        'statements': {
+            'value' : []
+        }}
+        ]
+        }
+       
+    
     if i == 0:
         statements.append(statment)
         current = statment
     else:
-        current['statements'].append(statment)
+        current['children'][1]['statements']['value'].append(statment)
         current = statment
 
 output = {'statements': statements}
 
 print(output)
+# from anytree import Node, RenderTree, AsciiStyle
 
+# def create_tree(node_dict, parent=None):
+#     # Create node for current element
+#     node = Node(node_dict["statements"], parent=parent)
+    
+#     # Recursively create child nodes
+#     for child in node_dict['statements'][0]["children"]:
+#         create_tree(child, parent=node)
+        
+#     return node
 
+# root = Node("root")
+
+# # Recursively create tree
+# create_tree(output, parent=root)
+
+# # Print tree
+# for pre, fill, node in RenderTree(root):
+#     print(f"{pre}{node.name}")
 
